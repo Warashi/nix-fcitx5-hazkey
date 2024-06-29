@@ -9,7 +9,6 @@
   fcitx5-qt,
   qtbase,
   swift,
-  swiftpm,
   glslang,
   shaderc,
   vulkan-headers,
@@ -24,9 +23,9 @@ stdenv.mkDerivation {
 
   src = hazkey-src;
 
+  HOME = '''$TMPDIR'';
+
   nativeBuildInputs = [
-    swift
-    swiftpm
     cmake
     extra-cmake-modules
     gettext
@@ -35,6 +34,7 @@ stdenv.mkDerivation {
 
   buildInputs =
     [
+      swift
       fcitx5
       glslang
       shaderc
