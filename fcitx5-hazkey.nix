@@ -1,35 +1,63 @@
 {
+  lib,
   stdenv,
-  autoPatchelfHook,
-  libcxx,
+  pkg-config,
+  cmake,
+  extra-cmake-modules,
+  gettext,
   fcitx5,
-  mesa,
+  fcitx5-qt,
+  qtbase,
+  swift,
+  glslang,
+  shaderc,
+  vulkan-headers,
   vulkan-loader,
+  vulkan-tools,
+  hazkey-src,
+  enableQt ? false,
 }:
 stdenv.mkDerivation {
-  name = "fcitx5-hazkey";
-  version = "0.0.4";
+  pname = "fcitx5-hazkey";
+  version = "dev-" + hazkey-src.lastModifiedDate;
 
-  src = builtins.fetchTarball {
-    url = "https://github.com/7ka-Hiira/fcitx5-hazkey/releases/download/0.0.4/fcitx5-hazkey-0.0.4-x86_64.tar.gz";
-    sha256 = "1a04mbflx17w6q9jzxasfk81z5iagkdh6jqjl5g900p021f2i9m9";
-  };
+  src = hazkey-src;
+
+  HOME = '''$TMPDIR'';
 
   nativeBuildInputs = [
-    autoPatchelfHook
+    cmake
+    extra-cmake-modules
+    gettext
+    pkg-config
   ];
 
-  buildInputs = [
-    libcxx
-    fcitx5
-    mesa
-    vulkan-loader
+  buildInputs =
+    [
+      swift
+      fcitx5
+      glslang
+      shaderc
+      vulkan-headers
+      vulkan-loader
+      vulkan-tools
+    ]
+    ++ lib.optionals enableQt [
+      fcitx5-qt
+      qtbase
+    ];
+
+  cmakeFlags = [
+    (lib.cmakeBool "ENABLE_QT" enableQt)
+    (lib.cmakeBool "USE_QT6" (lib.versions.major qtbase.version == "6"))
   ];
 
-  buildPhase = ''
-    cp -r --no-preserve=mode $src/usr $TMPDIR/
-    mv $TMPDIR/usr/lib/x86_64-linux-gnu/* $TMPDIR/usr/lib/
-    rmdir $TMPDIR/usr/lib/x86_64-linux-gnu
-    cp -r --no-preserve=mode $TMPDIR/usr $out
-  '';
+  dontWrapQtApps = true;
+
+  meta = with lib; {
+    description = "Input method engine for Fcitx5, which uses AzooKeyKanaKanjiConverter as its backend";
+    homepage = "https://github.com/7ka-Hiira/fcitx5-hazkey";
+    license = licenses.mit;
+    platforms = platforms.linux;
+  };
 }

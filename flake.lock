@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "hazkey-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1719331676,
+        "narHash": "sha256-R+nc2RDxH4BSwi2LKV5t/lk7ijvUORZ/LausU6NswsU=",
+        "owner": "7ka-Hiira",
+        "repo": "fcitx5-hazkey",
+        "rev": "f501a3b690cbd138f54ab8b9bc82c292e4aec65f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "7ka-Hiira",
+        "repo": "fcitx5-hazkey",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1719254875,
@@ -18,6 +34,7 @@
     },
     "root": {
       "inputs": {
+        "hazkey-src": "hazkey-src",
         "nixpkgs": "nixpkgs"
       }
     }
