@@ -1,0 +1,44 @@
+{
+  "nodes": {
+    "hazkey-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1719331676,
+        "narHash": "sha256-R+nc2RDxH4BSwi2LKV5t/lk7ijvUORZ/LausU6NswsU=",
+        "owner": "7ka-Hiira",
+        "repo": "fcitx5-hazkey",
+        "rev": "f501a3b690cbd138f54ab8b9bc82c292e4aec65f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "7ka-Hiira",
+        "repo": "fcitx5-hazkey",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1719254875,
+        "narHash": "sha256-ECni+IkwXjusHsm9Sexdtq8weAq/yUyt1TWIemXt3Ko=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "2893f56de08021cffd9b6b6dfc70fd9ccd51eb60",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "hazkey-src": "hazkey-src",
+        "nixpkgs": "nixpkgs"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
