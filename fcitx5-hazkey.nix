@@ -10,6 +10,8 @@
   qtbase,
   swift,
   swiftpm,
+  glslang,
+  shaderc,
   vulkan-headers,
   vulkan-loader,
   vulkan-tools,
@@ -34,6 +36,8 @@ stdenv.mkDerivation {
   buildInputs =
     [
       fcitx5
+      glslang
+      shaderc
       vulkan-headers
       vulkan-loader
       vulkan-tools

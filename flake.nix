@@ -16,12 +16,16 @@
   } @ inputs: let
     pkgs = import nixpkgs {
       system = "x86_64-linux";
-      overlays = [];
+      overlays = [
+        (_:_: {
+          swift = pkgs.callPackage ./swift_5_10.nix {};
+        })
+      ];
     };
   in {
     packages.x86_64-linux.fcitx5-hazkey = pkgs.qt6Packages.callPackage ./fcitx5-hazkey.nix {
       inherit (inputs) hazkey-src;
-      inherit (pkgs) fcitx5 swift vulkan-headers vulkan-loader vulkan-tools;
+      inherit (pkgs) fcitx5 swift glslang shaderc vulkan-headers vulkan-loader vulkan-tools;
       inherit (pkgs.swiftPackages) swiftpm;
     };
     packages.x86_64-linux.default = self.packages.x86_64-linux.fcitx5-hazkey;
