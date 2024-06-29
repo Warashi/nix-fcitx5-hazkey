@@ -14,20 +14,32 @@
     nixpkgs,
     ...
   } @ inputs: let
+    system = "x86_64-linux";
     pkgs = import nixpkgs {
       system = "x86_64-linux";
       overlays = [
-        (_:_: {
+        (_: prev: {
           swift = pkgs.callPackage ./swift_5_10.nix {};
+          libedit = prev.libedit.overrideAttrs (_: {postInstall ? "", ...}: {
+            postInstall = postInstall + ''
+              cd $out/lib
+              ln -s libedit.so.0 libedit.so.2
+            '';
+          });
         })
       ];
     };
   in {
-    packages.x86_64-linux.fcitx5-hazkey = pkgs.qt6Packages.callPackage ./fcitx5-hazkey.nix {
-      inherit (inputs) hazkey-src;
-      inherit (pkgs) fcitx5 swift glslang shaderc vulkan-headers vulkan-loader vulkan-tools;
-      inherit (pkgs.swiftPackages) swiftpm;
+    devShells.${system}.default = pkgs.mkShell {
+      packages = with pkgs; [swift];
     };
-    packages.x86_64-linux.default = self.packages.x86_64-linux.fcitx5-hazkey;
+    packages.${system} = rec {
+      fcitx5-hazkey = pkgs.qt6Packages.callPackage ./fcitx5-hazkey.nix {
+        inherit (inputs) hazkey-src;
+        inherit (pkgs) fcitx5 swift glslang shaderc vulkan-headers vulkan-loader vulkan-tools;
+        inherit (pkgs.llvmPackages_latest) stdenv;
+      };
+      default = fcitx5-hazkey;
+    };
   };
 }
