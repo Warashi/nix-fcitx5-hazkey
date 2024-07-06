@@ -39,6 +39,8 @@ stdenv.mkDerivation rec {
     vulkan-tools
   ];
 
+  swiftpmFlags=  "-Xswiftc -static-stdlib";
+
   buildPhase = builtins.readFile ./azookey-kkc-build.sh;
 
   installPhase =
@@ -51,6 +53,7 @@ stdenv.mkDerivation rec {
       # Now perform any installation steps.
       mkdir -p $out/lib
       cp $binPath/libhazkey.so $out/lib/
+      cp -r $binPath/AzooKeyKanakanjiConverter_KanaKanjiConverterModuleWithDefaultDictionary.resources $out/lib/
     '';
 
   meta = with lib; {
