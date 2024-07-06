@@ -38,7 +38,14 @@ in
 
       clang
       python311
-      libedit
+      (libedit.overrideAttrs (_: {postInstall ? "", ...}: {
+        postInstall =
+          postInstall
+          + ''
+            cd $out/lib
+            ln -s libedit.so.0 libedit.so.2
+          '';
+      }))
       libcxx
       libgcc
       libuuid
