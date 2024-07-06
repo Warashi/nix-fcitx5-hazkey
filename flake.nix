@@ -42,7 +42,7 @@
         inherit (inputs) hazkey-src;
       };
       swift = pkgs.swift;
-      default = swift;
+      default = fcitx5-hazkey;
     };
   };
 }

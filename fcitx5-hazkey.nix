@@ -15,6 +15,7 @@
   vulkan-loader,
   vulkan-tools,
   hazkey-src,
+  swiftpm2nix,
   enableQt ? false,
 }:
 stdenv.mkDerivation {
@@ -32,6 +33,8 @@ stdenv.mkDerivation {
     gettext
     pkg-config
   ];
+
+  configurePhase = (swiftpm2nix.helpers ./azookey-kkc).configure;
 
   buildInputs =
     [
