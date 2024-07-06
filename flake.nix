@@ -14,10 +14,12 @@
     pkgs = import nixpkgs {
       system = "x86_64-linux";
       overlays = [
-        (_: prev: rec {
+        (_: prev: {
           swift-unwrapped = pkgs.callPackage ./swift-unwrapped_5_10.nix {};
           swift = pkgs.callPackage ./swiftc_5_10.nix {};
           swiftpm = pkgs.callPackage ./swiftpm_5_10.nix {};
+          azookey-kkc = pkgs.callPackage ./azookey-kkc.nix {};
+          fcitx5-hazkey = pkgs.qt6Packages.callPackage ./fcitx5-hazkey.nix {};
         })
       ];
     };
@@ -37,10 +39,10 @@
       ];
     };
     packages.${system} = rec {
-      fcitx5-hazkey = pkgs.qt6Packages.callPackage ./fcitx5-hazkey.nix {};
-      azookey-kkc = pkgs.callPackage ./azookey-kkc.nix {};
+      fcitx5-hazkey = pkgs.fcitx5-hazkey;
+      azookey-kkc = pkgs.azookey-kkc;
       swift = pkgs.swift;
-      default = azookey-kkc;
+      default = fcitx5-hazkey;
     };
   };
 }

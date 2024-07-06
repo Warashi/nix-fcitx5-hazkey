@@ -3,19 +3,13 @@
   stdenv,
   fetchFromGitHub,
   pkg-config,
+  azookey-kkc,
   cmake,
   extra-cmake-modules,
   gettext,
   fcitx5,
   fcitx5-qt,
   qtbase,
-  swift,
-  glslang,
-  shaderc,
-  vulkan-headers,
-  vulkan-loader,
-  vulkan-tools,
-  swiftpm2nix,
   enableQt ? false,
 }:
 stdenv.mkDerivation rec {
@@ -29,39 +23,30 @@ stdenv.mkDerivation rec {
     hash = "sha256-75GRS03CQvYzAtumeL4Exi3puSKjtwrmHCqBBgklaLg=";
   };
 
+  sourceRoot = "${src.name}/fcitx5";
+
   nativeBuildInputs = [
-    swift
     cmake
     extra-cmake-modules
     gettext
     pkg-config
   ];
 
-  configurePhase = (swiftpm2nix.helpers ./azookey-kkc).configure;
+  propagatedBuildInputs = [
+    azookey-kkc
+  ];
 
   buildInputs =
-    [
-      fcitx5
-      glslang
-      shaderc
-      vulkan-headers
-      vulkan-loader
-      vulkan-tools
-    ]
+    [ fcitx5 ]
     ++ lib.optionals enableQt [
       fcitx5-qt
       qtbase
     ];
 
-  buildPhase = ''
-    set -e
-    export HOME=$(mktemp -d)
-    cd $(mktemp -d)
-    cp -r --no-preserve=mode $src ./src
-    pwd
-    mkdir ./src/build && cd ./src/build
-    cmake -DCMAKE_INSTALL_PREFIX=$out .. || cmake -DCMAKE_INSTALL_PREFIX=$out .. # do twice
-    make install
+  preBuild = ''
+    mkdir -p /build/source/fcitx5/azookey-kkc/.build
+    cp -r ${azookey-kkc}/lib /build/source/fcitx5/azookey-kkc/.build/release
+    ls -alh /build/source/fcitx5/azookey-kkc/.build/release
   '';
 
   dontWrapQtApps = true;
