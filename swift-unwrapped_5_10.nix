@@ -2,7 +2,6 @@
   llvmPackages_15,
   stdenv ? llvmPackages_15.stdenv,
   autoPatchelfHook,
-  buildFHSEnv,
   libz,
   libuuid,
   libxml2,
@@ -11,9 +10,8 @@
   curl,
   python3,
   libedit,
-  glibc,
 }: let
-  pname = "swift";
+  pname = "swift-unwrapped";
   version = "5.10.1";
   swift-unwrapped = stdenv.mkDerivation {
     inherit pname version;
@@ -36,7 +34,7 @@
       sqlite.out
       (curl.overrideAttrs (_: old: {configureFlags = old.configureFlags ++ ["--enable-versioned-symbols"];})).out
       python3.out
-    
+
       (libedit.overrideAttrs (_: {postInstall ? "", ...}: {
         postInstall =
           postInstall
@@ -45,7 +43,6 @@
             ln -s libedit.so.0 libedit.so.2
           '';
       }))
-
     ];
 
     installPhase = ''
@@ -53,35 +50,4 @@
     '';
   };
 in
-  buildFHSEnv {
-    name = pname;
-    targetPkgs = pkgs: [
-      swift-unwrapped
-
-      glibc.dev
-      stdenv.cc.cc
-      stdenv.cc.cc.lib
-
-      # (curl.overrideAttrs (_: old: {configureFlags = old.configureFlags ++ ["--enable-versioned-symbols"];}))
-
-      # clang
-      # python311
-      # (libedit.overrideAttrs (_: {postInstall ? "", ...}: {
-      #   postInstall =
-      #     postInstall
-      #     + ''
-      #       cd $out/lib
-      #       ln -s libedit.so.0 libedit.so.2
-      #     '';
-      # }))
-      # libcxx
-      # libgcc
-      # libxml2
-      # sqlite
-    ];
-
-    runScript = "swift";
-    profile = ''
-      export CC=clang
-    '';
-  }
+  swift-unwrapped
