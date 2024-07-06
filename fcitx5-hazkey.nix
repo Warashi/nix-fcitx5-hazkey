@@ -1,6 +1,7 @@
 {
   lib,
   stdenv,
+  fetchFromGitHub,
   pkg-config,
   cmake,
   extra-cmake-modules,
@@ -14,15 +15,19 @@
   vulkan-headers,
   vulkan-loader,
   vulkan-tools,
-  hazkey-src,
   swiftpm2nix,
   enableQt ? false,
 }:
-stdenv.mkDerivation {
+stdenv.mkDerivation rec {
   pname = "fcitx5-hazkey";
-  version = "dev-" + hazkey-src.lastModifiedDate;
+  version = "0.0.4";
 
-  src = hazkey-src;
+  src = fetchFromGitHub {
+    owner = "7ka-Hiira";
+    repo = "fcitx5-hazkey";
+    rev = version;
+    hash = "sha256-75GRS03CQvYzAtumeL4Exi3puSKjtwrmHCqBBgklaLg=";
+  };
 
   HOME = '''$TMPDIR'';
 

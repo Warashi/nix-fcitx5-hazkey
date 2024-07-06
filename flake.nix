@@ -3,10 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-    hazkey-src = {
-      url = "github:7ka-Hiira/fcitx5-hazkey";
-      flake = false;
-    };
   };
 
   outputs = {
@@ -38,9 +34,7 @@
       ];
     };
     packages.${system} = rec {
-      fcitx5-hazkey = pkgs.qt6Packages.callPackage ./fcitx5-hazkey.nix {
-        inherit (inputs) hazkey-src;
-      };
+      fcitx5-hazkey = pkgs.qt6Packages.callPackage ./fcitx5-hazkey.nix { };
       swift = pkgs.swift;
       default = fcitx5-hazkey;
     };
