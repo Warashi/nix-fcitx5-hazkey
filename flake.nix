@@ -19,7 +19,7 @@
       system = "x86_64-linux";
       overlays = [
         (_: prev: {
-          swift = pkgs.callPackage ./swift_5_10.nix { };
+          swift = pkgs.callPackage ./swift_5_10.nix {};
         })
       ];
     };

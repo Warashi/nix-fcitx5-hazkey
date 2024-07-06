@@ -26,6 +26,7 @@ stdenv.mkDerivation {
   HOME = '''$TMPDIR'';
 
   nativeBuildInputs = [
+    swift
     cmake
     extra-cmake-modules
     gettext
@@ -34,7 +35,6 @@ stdenv.mkDerivation {
 
   buildInputs =
     [
-      swift
       fcitx5
       glslang
       shaderc
