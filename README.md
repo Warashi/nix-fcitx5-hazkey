@@ -1,0 +1,1 @@
+# nix-fcitx5-hazkey
