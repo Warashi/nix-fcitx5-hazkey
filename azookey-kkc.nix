@@ -13,7 +13,6 @@
   vulkan-tools,
   swiftpm2nix,
 }:
-
 stdenv.mkDerivation rec {
   pname = "azookey-kkc";
   version = "0.0.6";
@@ -51,7 +50,7 @@ stdenv.mkDerivation rec {
     vulkan-tools
   ];
 
-  swiftpmFlags=  "-Xswiftc -static-stdlib";
+  swiftpmFlags = "-Xswiftc -static-stdlib";
 
   buildPhase = builtins.readFile ./azookey-kkc-build.sh;
 

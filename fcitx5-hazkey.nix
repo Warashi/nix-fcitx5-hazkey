@@ -33,12 +33,11 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  propagatedBuildInputs = [
-    azookey-kkc
-  ];
-
   buildInputs =
-    [ fcitx5 ]
+    [
+      fcitx5
+      azookey-kkc
+    ]
     ++ lib.optionals enableQt [
       fcitx5-qt
       qtbase
