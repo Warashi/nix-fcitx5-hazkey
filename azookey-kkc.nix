@@ -3,6 +3,7 @@
   stdenv,
   fetchFromGitHub,
   azookey-kkc-resources,
+  autoPatchelfHook,
   swift,
   swiftpm,
   glslang,
@@ -30,6 +31,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     swift
     swiftpm
+    autoPatchelfHook
   ];
 
   postPatch = ''
