@@ -19,6 +19,7 @@
           swift = pkgs.callPackage ./swiftc_5_10.nix {};
           swiftpm = pkgs.callPackage ./swiftpm_5_10.nix {};
           azookey-kkc = pkgs.callPackage ./azookey-kkc.nix {};
+          azookey-kkc-resources = pkgs.callPackage ./azookey-kkc-resources.nix {};
           fcitx5-hazkey = pkgs.qt6Packages.callPackage ./fcitx5-hazkey.nix {};
         })
       ];
@@ -41,7 +42,7 @@
     packages.${system} = rec {
       fcitx5-hazkey = pkgs.fcitx5-hazkey;
       azookey-kkc = pkgs.azookey-kkc;
-      swift = pkgs.swift;
+      azookey-kkc-resources = pkgs.azookey-kkc-resources;
       default = fcitx5-hazkey;
     };
   };

@@ -14,13 +14,14 @@
 }:
 stdenv.mkDerivation rec {
   pname = "fcitx5-hazkey";
-  version = "0.0.4";
+  version = "0.0.6";
 
   src = fetchFromGitHub {
     owner = "7ka-Hiira";
     repo = "fcitx5-hazkey";
     rev = version;
-    hash = "sha256-75GRS03CQvYzAtumeL4Exi3puSKjtwrmHCqBBgklaLg=";
+    hash = "sha256-0vsC/YbWwDHpR2vXZ7hvmctnktWpgg7ITnAZi4LAif8=";
+    fetchSubmodules = true;
   };
 
   sourceRoot = "${src.name}/fcitx5";

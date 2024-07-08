@@ -2,6 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  azookey-kkc-resources,
   swift,
   swiftpm,
   glslang,
@@ -11,15 +12,17 @@
   vulkan-tools,
   swiftpm2nix,
 }:
+
 stdenv.mkDerivation rec {
   pname = "azookey-kkc";
-  version = "0.0.4";
+  version = "0.0.6";
 
   src = fetchFromGitHub {
     owner = "7ka-Hiira";
     repo = "fcitx5-hazkey";
     rev = version;
-    hash = "sha256-75GRS03CQvYzAtumeL4Exi3puSKjtwrmHCqBBgklaLg=";
+    hash = "sha256-0vsC/YbWwDHpR2vXZ7hvmctnktWpgg7ITnAZi4LAif8=";
+    fetchSubmodules = true;
   };
 
   sourceRoot = "${src.name}/azookey-kkc";
@@ -29,9 +32,16 @@ stdenv.mkDerivation rec {
     swiftpm
   ];
 
+  postPatch = ''
+    cat <<'EOF' > Sources/azookey-kkc/path.swift
+    let systemResourecePath: String = "${azookey-kkc-resources}/share/hazkey"
+  '';
+
   configurePhase = (swiftpm2nix.helpers ./azookey-kkc).configure;
 
   buildInputs = [
+    azookey-kkc-resources
+
     glslang
     shaderc
     vulkan-headers
@@ -53,7 +63,6 @@ stdenv.mkDerivation rec {
       # Now perform any installation steps.
       mkdir -p $out/lib
       cp $binPath/libhazkey.so $out/lib/
-      cp -r $binPath/AzooKeyKanakanjiConverter_KanaKanjiConverterModuleWithDefaultDictionary.resources $out/lib/
     '';
 
   meta = with lib; {

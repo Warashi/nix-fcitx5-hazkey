@@ -2,7 +2,7 @@
 {
   workspaceStateFile = ./workspace-state.json;
   hashes = {
-    "AzooKeyKanaKanjiConverter" = "0r8ssq076n4082fjzlr6j2wyqq417zgpr0c87kgqhp2y9dlx14gc";
+    "AzooKeyKanaKanjiConverter" = "04yl3k7p4vfm9imm052lky1rimh0jdssr3gvvaml42qlcay0d5k2";
     "llama.cpp" = "015kjm3imzka2pri77ld7pwiiiacbf0k87hgpalx8ajrcdqb3s8c";
     "swift-algorithms" = "14amd9jqffqrcgd5sim1z54i84ny6ahicv0msazkxv5dsmiac054";
     "swift-numerics" = "0nkifh83s9qamb054v05l7v6f9rz8bp9bxqwrmaqhddsmlqhx1qg";
