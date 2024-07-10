@@ -22,7 +22,7 @@ in
     };
 
     installPhase = ''
-      mkdir -p $out/share
+      mkdir -p $out/share/hazkey
       cp -r $src/azooKey_dictionary_storage/Dictionary $out/share/hazkey/Dictionary
       cp -r ${zenzai} $out/share/hazkey/ggml-model-Q8_0.gguf
     '';
