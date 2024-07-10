@@ -23,8 +23,8 @@ in
 
     installPhase = ''
       mkdir -p $out/share
-      cp -r $src/azooKey_dictionary_storage/Dictionary $out/share/Dictionary
-      cp -r ${zenzai} $out/share/Dictionaryggml-model-Q8_0.gguf
+      cp -r $src/azooKey_dictionary_storage/Dictionary $out/share/hazkey/Dictionary
+      cp -r ${zenzai} $out/share/hazkey/ggml-model-Q8_0.gguf
     '';
 
     meta = with lib; {
