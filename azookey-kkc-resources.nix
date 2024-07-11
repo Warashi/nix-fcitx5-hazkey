@@ -1,12 +1,12 @@
 {
   lib,
   stdenv,
+  fetchurl,
   fetchFromGitHub,
 }: let
-  zenzai = builtins.fetchurl {
-    name = "zenzai";
+  zenzai = fetchurl {
     url = "https://huggingface.co/Miwa-Keita/zenz-v1/resolve/main/ggml-model-Q8_0.gguf";
-    sha256 = "057xcm9cxxa527gm57h7xsy54fkyxwfpbn5raphjig907qh6h771";
+    hash = "sha256-4RxoID4gvSjhVbnYdR3vfjpSvO4HnlLfEUX1zlJl/RQ=";
   };
 in
   stdenv.mkDerivation rec {
