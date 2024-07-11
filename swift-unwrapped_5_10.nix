@@ -8,7 +8,7 @@
   ncurses,
   sqlite,
   curl,
-  python3,
+  python311,
   libedit,
 }: let
   pname = "swift-unwrapped";
@@ -33,7 +33,7 @@
       libz.out
       sqlite.out
       (curl.overrideAttrs (_: old: {configureFlags = old.configureFlags ++ ["--enable-versioned-symbols"];})).out
-      python3.out
+      python311.out
 
       (libedit.overrideAttrs (_: {postInstall ? "", ...}: {
         postInstall =
